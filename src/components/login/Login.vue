@@ -26,8 +26,8 @@
     data() {
       return {
         loginForm: {
-          username: '',
-          password: ''
+          username: 'admin',
+          password: '123456'
         },
         rules: {
           username: [
@@ -63,8 +63,10 @@
           .post('http://localhost:8888/api/private/v1/login', this.loginForm)
           .then(res => {
             const { data, meta } = res.data
-            console.log(data)
+            // console.log(data)
             if (meta.status === 200) {
+              // 将登录成功的表示存到 localStorage中
+              localStorage.setItem('token', data.token)
               // console.log('登录成功')
               // 登录的成功跳转首页
               this.$router.push('home')
@@ -111,7 +113,7 @@
   .login-form {
     height: 100%;
   }
-  .login-center{
+  .login-center {
     min-width: 381px;
     padding: 20px 30px;
     border-radius: 10px;
