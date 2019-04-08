@@ -3,7 +3,9 @@
     <el-header>
       <el-row>
         <el-col :span="8" class="logo">
-          <img src="@/assets/images/CCTV.jpg" alt="">
+
+          <img class="imgsmat" v-if="isCollapse" src="@/assets/images/smat.jpg" alt="">
+          <img class="imgbig" v-else src="@/assets/images/CCTV.jpg" alt="">
           <span class="el-icon-menu" @click="opoo(isCollapse)"></span>
         </el-col>
         <el-col :span="8">
@@ -19,7 +21,7 @@
     </el-header>
     <el-container>
       <!-- <el-aside> -->
-      <el-menu default-active="1-4-1" class="el-menu-vertical-demo" background-color="#001529" text-color="#fff" active-text-color="#ffd04b" :unique-opened="true" :router="true" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
+      <el-menu default-active="1-4-1" class="el-menu-vertical-demo" background-color="#001529" text-color="#fff" active-text-color="#ffd04b" @open="handleOpen" :unique-opened="true" :router="true" @close="handleClose" :collapse="isCollapse">
         <el-submenu index="1" class="home-open-menu">
           <template slot="title">
             <i class="el-icon-location"></i>
@@ -107,11 +109,17 @@
           font-size: 23px;
           color: #3379db;
         }
-        img {
+        .imgsmat {
+          width: 46px;
+          height: 46px;
+          padding-top: 5px;
+          padding-left: 10px;
+        }
+        .imgbig {
           width: 156px;
           height: 42px;
           padding-top: 5px;
-          padding-left: 25px;
+          padding-left: 10px;
         }
       }
       .title {
