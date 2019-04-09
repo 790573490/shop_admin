@@ -60,7 +60,7 @@
         // 使用axuis 发送请求
         // http://localhost:8888/api/private/v1/login
         axios
-          .post('http://localhost:8888/api/private/v1/login', this.loginForm)
+          .post('/login', this.loginForm)
           .then(res => {
             const { data, meta } = res.data
             // console.log(data)

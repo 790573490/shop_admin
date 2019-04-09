@@ -21,7 +21,7 @@
     </el-header>
     <el-container>
       <!-- <el-aside> -->
-      <el-menu default-active="1-4-1" class="el-menu-vertical-demo" background-color="#001529" text-color="#fff" active-text-color="#ffd04b" @open="handleOpen" :unique-opened="true" :router="true" @close="handleClose" :collapse="isCollapse">
+      <el-menu default-active="/home/users" class="el-menu-vertical-demo" background-color="#001529" text-color="#fff" active-text-color="#ffd04b" @open="handleOpen" :unique-opened="true" :router="true" @close="handleClose" :collapse="isCollapse">
         <el-submenu index="1" class="home-open-menu">
           <template slot="title">
             <i class="el-icon-location"></i>
