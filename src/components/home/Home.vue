@@ -34,15 +34,22 @@
             </template>
           </el-menu-item>
         </el-submenu>
+
         <el-submenu index="2" class="home-open-menu">
           <template slot="title">
             <i class="el-icon-menu"></i>
-            <span slot="title">用户管理</span>
+            <span slot="title">权限管理</span>
           </template>
-          <el-menu-item index="2-1">
+          <el-menu-item index="/home/roles">
             <template slot="title">
               <i class="el-icon-tickets"></i>
-              <span slot="title">用户列表</span>
+              <span slot="title">角色列表</span>
+            </template>
+          </el-menu-item>
+          <el-menu-item index="/home/rights">
+            <template slot="title">
+              <i class="el-icon-tickets"></i>
+              <span slot="title">权限列表</span>
             </template>
           </el-menu-item>
         </el-submenu>
@@ -50,7 +57,7 @@
       <!-- </el-aside> -->
       <el-main>
         <!-- 子路由出口 -->
-        <router-view/>
+        <router-view />
       </el-main>
     </el-container>
   </el-container>

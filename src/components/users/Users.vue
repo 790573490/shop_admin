@@ -38,7 +38,7 @@
         <template slot-scope="scope">
           <el-button @click="showUserEditDailog(scope.row)" size="mini" type="primary" icon="el-icon-edit" plain circle></el-button>
           <el-button @click="delUserById(scope.row.id)" size="mini" type="danger" icon="el-icon-delete" plain circle></el-button>
-          <el-button size="mini" type="warning" icon="el-icon-check" plain>分配</el-button>
+          <el-button size="mini" type="warning" icon="el-icon-check" plain @click="showUserAssignDialog">分配角色</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -87,6 +87,25 @@
       <div slot="footer" class="dialog-footer">
         <el-button @click="userEditDialog = false">取 消</el-button>
         <el-button type="primary" @click="editUser">确 定</el-button>
+      </div>
+    </el-dialog>
+
+    <!-- 分配角色对话框 -->
+    <el-dialog title="分配角色" :visible.sync="userAssignDialog">
+      <el-form :model="userAssignForm">
+        <el-form-item label="用户名" :label-width="formLabelWidth">
+          <el-input v-model="userAssignForm.name" autocomplete="off" :disabled="true"></el-input>
+        </el-form-item>
+        <el-form-item label="角色列表" :label-width="formLabelWidth">
+          <el-select v-model="userAssignForm.region" placeholder="请选择活动区域">
+            <el-option label="区域一" value="shanghai"></el-option>
+            <el-option label="区域二" value="beijing"></el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="userAssignDialog = false">取 消</el-button>
+        <el-button type="primary" @click="userAssignDialog = false">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -152,6 +171,17 @@
               trigger: 'change'
             }
           ]
+        },
+        userAssignDialog: false,
+        userAssignForm: {
+          name: '',
+          region: '',
+          date1: '',
+          date2: '',
+          delivery: false,
+          type: [],
+          resource: '',
+          desc: ''
         }
       }
     },
@@ -307,23 +337,29 @@
           if (valid) {
             const { id, email, mobile } = this.userEditFrom
             // console.log(id)
-            this.$http.put(`/users/${id}`, {
-              email: email,
-              mobile: mobile
-            }).then(res => {
-              // console.log(res)
-              const { data, meta } = res.data
-              if (meta.status === 200) {
-                const itemUser = this.userList.find(item => item.id === data.id)
-                itemUser.email = data.email
-                itemUser.mobile = data.mobile
-                this.userEditDialog = false
-              }
-            })
+            this.$http
+              .put(`/users/${id}`, {
+                email: email,
+                mobile: mobile
+              })
+              .then(res => {
+                // console.log(res)
+                const { data, meta } = res.data
+                if (meta.status === 200) {
+                  const itemUser = this.userList.find(item => item.id === data.id)
+                  itemUser.email = data.email
+                  itemUser.mobile = data.mobile
+                  this.userEditDialog = false
+                }
+              })
           } else {
             console.log('验证失败')
           }
         })
+      },
+      // 展示用户分配角色对话框
+      showUserAssignDialog() {
+        this.userAssignDialog = true
       }
     }
   }

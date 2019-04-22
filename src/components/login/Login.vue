@@ -56,28 +56,26 @@
     },
     methods: {
       // 登录功能的实现
-      login() {
+      async login() {
         // 使用axuis 发送请求
         // http://localhost:8888/api/private/v1/login
-        axios
-          .post('/login', this.loginForm)
-          .then(res => {
-            const { data, meta } = res.data
-            // console.log(data)
-            if (meta.status === 200) {
-              // 将登录成功的表示存到 localStorage中
-              localStorage.setItem('token', data.token)
-              // console.log('登录成功')
-              // 登录的成功跳转首页
-              this.$router.push('home')
-            } else {
-              this.$message({
-                message: meta.msg,
-                type: 'error',
-                duration: 2000
-              })
-            }
+        const res = await axios.post('/login', this.loginForm)
+        console.log(res)
+        const { data, meta } = res.data
+        // console.log(data)
+        if (meta.status === 200) {
+          // 将登录成功的表示存到 localStorage中
+          localStorage.setItem('token', data.token)
+          // console.log('登录成功')
+          // 登录的成功跳转首页
+          this.$router.push('home')
+        } else {
+          this.$message({
+            message: meta.msg,
+            type: 'error',
+            duration: 2000
           })
+        }
       },
       submitForm() {
         // this.$refs[formName] 登录按钮
